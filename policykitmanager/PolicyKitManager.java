@@ -10,9 +10,9 @@ Info:     This application will manage PolicyKit policies for the end user. gksu
 */
 package policykitmanager;
 
-import java.io.*;         //need to read and write to policy files
-import org.gnome.gdk.*;   //needed for GUI
-import org.gnome.gtk.*;   //needed for GUI
+import java.io.*;           //need to read and write to policy files
+import org.gnome.gdk.*;     //needed for GUI
+import org.gnome.gtk.*;     //needed for GUI
 // javac -classpath $CLASSPATH:/usr/share/java/gtk-4.1.jar PolicyKitManager.java
 
 public class PolicyKitManager{
@@ -30,9 +30,10 @@ public class PolicyKitManager{
       if (!policy.isFile())
         if (!makePolicy(policy))
           throw new Exception("\nFailed to create policy file in /usr/share/polkit-1/actions/.");
-      BufferedReader policyReader = new BufferedReader(
-        new InputStreamReader(new FileInputStream(policy)));
-
+      System.out.println("PolicyKitManager Policy found!");
+      //BufferedReader policyReader = new BufferedReader(
+      //  new InputStreamReader(new FileInputStream(policy)));
+      //policyReader.close();
     }catch(Exception e){
       System.out.println(e.getMessage());
     }
@@ -43,26 +44,38 @@ public class PolicyKitManager{
     Process p = Runtime.getRuntime().exec("id -u"); //should output 0 if true
     try{
       BufferedReader br = new BufferedReader ( new InputStreamReader( p.getInputStream()));
-      boolean iAmRoot = Integer.parseInt(br.readLine())==0;
+      boolean iAmRoot = Integer.parseInt(br.readLine())==0; //checks if process returns 0 to stream
       br.close(); // Release system resources connected to file
       if(iAmRoot)
         return true;
       else return false;
     }catch(IOException io){
-      return false;
+      System.out.println(io.getMessage());
+      return false;   //if there's a problem, report that user isn't root
     }
   }
 
-  private static boolean makePolicy(File newPolicy) throws IOException{
+  private static boolean makePolicy(File policy) throws IOException{
     //Create Policy file
-    File newFile = new File("filetest.txt");
+    File toCopy = new File("org.policykitmanager.policykit.policy");  //copy file from install
     try{
-      if (newFile.createNewFile())  //attempt to create the file
-        return true;
-      else return false;
-
-    }catch(IOException io){
-      return false;
+      if(!toCopy.isFile())  //if there's no file to copy, the installation is broken
+        throw new Exception("\nFiles missing from PolicyKitManager installation.");
+      BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(policy)));
+      BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(toCopy)));
+      String tempS = br.readLine(); //temporary string to hold current line
+      while(tempS!=null){           //exit loop at end of file
+        bw.write(tempS+"\n");       //write currently read line to policy file
+        bw.flush();                 //flush out rest of stream just in case
+        tempS = br.readLine();      //load next line for loop
+      }
+      br.close();
+      bw.close();
+      System.out.println("Successfully created file in /usr/share/polkit-1/actions/");
+      return true;
+    }catch(Exception x){
+      System.out.println(x.getMessage());
+      return false; //if there's a problem, report that policy wasn't made successfully
     }
   }
 }
