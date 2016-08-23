@@ -55,8 +55,9 @@ public class PolicyKitManager{
 
   private static boolean makePolicy(File newPolicy) throws IOException{
     //Create Policy file
+    File newFile = new File("filetest.txt");
     try{
-      if (newPolicy.createNewFile())  //attempt to create the file
+      if (newFile.createNewFile())  //attempt to create the file
         return true;
       else return false;
 
