@@ -5,41 +5,35 @@ Date:     Started on August 19, 2016
 Info:     This application will manage PolicyKit policies for the end user. gksudo is no longer
           included with Ubuntu, with the common argument being to use pkexec instead. However,
           using GUI applications with pkexec can be time-consuming if one has to write policies
-          for them manually. Additonally, this tempts users to just use sudo, which can be a
-          security concern.
+          for them manually. Additonally, this tempts novice users to just use sudo, which can be a
+          security concern. For security reasons, this app only manages policies it creates.
 */
 package policykitmanager;
 
 import java.io.*;           //need to read and write to policy files
-import org.gnome.gdk.*;     //needed for GUI
-import org.gnome.gtk.*;     //needed for GUI
-// javac -classpath $CLASSPATH:/usr/share/java/gtk-4.1.jar PolicyKitManager.java
+// javac -classpath $CLASSPATH:/usr/share/java/gtk-4.1.jar policykitmanager/PolicyKitManager.java
 
 public class PolicyKitManager{
   public static void main(String[] args){
     BufferedReader policyReader = null;
     try{
       //First, detect if PolicyKitManager is being run with root. This is necessary.
-      System.out.println("Checking if privileged user...");
-      //String output = (p.getOutputStream());
-      //String error = (p.getErrorStream());
       if (!isRoot()) //check if user is root
-        throw new Exception("\nPlease run with sudo to use. Otherwise, try polkit-explorer.");
-      System.out.println("Great!");
+        throw new Exception("Please run with sudo to use.");
       //Check if policy file exists, if not, create it
       File policy = new File("/usr/share/polkit-1/actions/org.policykitmanager.policykit.policy");
       File template = new File("org.policykitmanager.policykit.policy");  //use to make new policy
       if (!policy.isFile())
         if (!copyFile(template,policy,true))
-          throw new Exception("\nFailed to create policy file in /usr/share/polkit-1/actions/.");
+          throw new Exception("Failed to create policy file in /usr/share/polkit-1/actions/.");
       //read current policy file
       policyReader = new BufferedReader(new InputStreamReader(new FileInputStream(policy)));
 
     }catch(Exception e){
-      System.out.println(e.getMessage());
+      System.out.println(e.getMessage());     //print Exception message to screen
     }finally{
       try{
-        policyReader.close();
+        policyReader.close();                 //cleanup by closing open BufferedReader
       }catch(Exception e){
         System.out.println(e.getMessage());
       }
@@ -58,7 +52,7 @@ public class PolicyKitManager{
         return true;
       else return false;
     }catch(IOException io){
-      System.out.println(io.getMessage());
+      System.out.println(io.getMessage());     //print Exception message to screen
       return false;   //if there's a problem, report that user isn't root
     }finally{
       br.close();
@@ -89,7 +83,7 @@ public class PolicyKitManager{
       }
       return true;
     }catch(Exception x){
-      System.out.println(x.getMessage());
+      System.out.println(x.getMessage());     //print Exception message to screen
       return false; //if there's a problem, report that policy wasn't made successfully
     }finally{
       br.close();
