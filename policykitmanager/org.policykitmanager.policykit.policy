@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+"-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+"http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+<!--
+  You should not edit this file manually; it was made with PolicyKitManager and should be edited
+  with it. See more information at https://github.com/thethinkman/PolicyKitManager .
+-->
+ <vendor>PolicyKitManager</vendor>
+ <vendor_url>https://github.com/thethinkman/PolicyKitManager</vendor_url>
+
+</policyconfig>
