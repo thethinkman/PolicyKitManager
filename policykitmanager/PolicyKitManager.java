@@ -38,13 +38,22 @@ public class PolicyKitManager{
       policyReader = new BufferedReader(new InputStreamReader(new FileInputStream(policy)));
       writeTemp = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(tempFile)));
       String tempS = null;
-      if(args.length>0){
+      if(args.length==3){
         if(args[0].equals("add")){
           System.out.println("making temporary file for adding...");
           if(!copyFile(policy,tempFile,false))
             throw new IOException("Failed to create temporary file, exiting...");
-          writeTemp.write("\n<action id=\"org.policykitmanager.policykit.polkitman"+numActions+"\">");
-
+          writeTemp.write("\n\t<action id=\"org.policykitmanager.policykit.polkitman"+(numActions+1)+"\">");
+          System.out.println("\n\t<action id=\"org.policykitmanager.policykit.polkitman"+(numActions+1)+"\">");
+          writeTemp.write("\n\t\t<description>Run program with elevated permissions</description>");
+          writeTemp.write("\n\t\t<message>Authentication is required to run this program</message>");
+          writeTemp.write("\n\t\t<defaults>");
+          writeTemp.write("\n\t\t\t<allow_any>no</allow_any>");
+          writeTemp.write("\n\t\t\t<allow_inactive>no</allow_inactive>");
+          writeTemp.write("\n\t\t\t<allow_active>auth_admin_keep</allow_active>");
+          writeTemp.write("\n\t\t</defaults>");
+          writeTemp.write("\n\t\t<annotate key=\"org.freedesktop.policykit.exec.path\">"+args[1]+"</annotate>");
+          if (args[2].equals("gui"))
         }else if (args[0].equals("rm")) {
 
         }
