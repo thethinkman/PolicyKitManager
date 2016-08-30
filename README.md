@@ -11,6 +11,21 @@ Info:     This application will manage PolicyKit policies for the end user. gksu
           for them manually. Additonally, this tempts novice users to just use sudo, which can be a
           security concern. For security reasons, this app only manages policies it creates.
 
-Note:     Not in usable state yet, do not use.
+#Install Notes
+Out of the Box:
 
-Please read the license before using this in closed-source for-profit applications.
+To run:   To simply run, you may run 
+
+          "sudo PolicyKitManager.jar add [gui or nogui] [path-to-program]" 
+          
+          gui/nogui refers to if the app has a graphical interface.
+
+Install to run anywhere:
+
+1.        First, create a symlink in /usr/bin like this:
+
+          sudo ln -s PolicyKitManager.jar /usr/bin/polkitman
+          
+2.        Then, run normally from any directory 
+        
+          sudo polkitman add [gui or nogui] [path-to-program]
