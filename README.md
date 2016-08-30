@@ -30,9 +30,13 @@ Then, run normally from any directory
 
 #Changelog
 
-v0.1-alpha----------Currently can add programs to PolicyKit. Currently writes policy to
+v0.1-alpha-------------------------------------------------------------------------
+
+Currently can add programs to PolicyKit. Currently writes policy to
 
                     /usr/share/polkit-1/actions/org.policykitmanager.policykit.policy
                     
-Planned Features----Will be able to list previously added policies, and remove them upon request.
-                    For security reasons, this program will not edit policies added manually or by other means. 
+Planned Features-------------------------------------------------------------------
+
+Will be able to list previously added policies, and remove them upon request.
+For security reasons, this program will not edit policies added manually or by other means. 
