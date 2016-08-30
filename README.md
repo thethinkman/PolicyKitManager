@@ -10,6 +10,7 @@ Info:     This application will manage PolicyKit policies for the end user. gksu
           using GUI applications with pkexec can be time-consuming if one has to write policies
           for them manually. Additonally, this tempts novice users to just use sudo, which can be a
           security concern. For security reasons, this app only manages policies it creates.
+          This program will require an installation of Java to run.
 
 #Install Notes
 Out of the Box:
