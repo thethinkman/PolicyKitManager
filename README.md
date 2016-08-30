@@ -43,3 +43,4 @@ Planned Features----------------------------------------------------------------
 
 Will be able to list previously added policies, and remove them upon request.
 For security reasons, this program will not edit policies added manually or by other means. 
+Perhaps I should also write a man page for this tool.
