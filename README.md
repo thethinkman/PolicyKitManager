@@ -16,16 +16,14 @@ Out of the Box:
 
 To run:   To simply run, you may run 
 
-          "sudo PolicyKitManager.jar add [gui or nogui] [path-to-program]" 
+          sudo PolicyKitManager.jar add [gui or nogui] [path-to-program] 
           
-          gui/nogui refers to if the app has a graphical interface.
+gui/nogui refers to if the app has a graphical interface.
 
 Install to run anywhere:
 
 1.        First, create a symlink in /usr/bin like this:
-
           sudo ln -s PolicyKitManager.jar /usr/bin/polkitman
-          
+         
 2.        Then, run normally from any directory 
-        
           sudo polkitman add [gui or nogui] [path-to-program]
