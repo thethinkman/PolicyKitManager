@@ -22,8 +22,16 @@ gui/nogui refers to if the app has a graphical interface.
 
 Install to run anywhere:
 
-1.        First, create a symlink in /usr/bin like this:
+First, create a symlink in /usr/bin like this:
           sudo ln -s PolicyKitManager.jar /usr/bin/polkitman
          
-2.        Then, run normally from any directory 
+Then, run normally from any directory 
           sudo polkitman add [gui or nogui] [path-to-program]
+
+#Changelog
+
+v0.1-alpha          Currently can add programs to PolicyKit. Currently writes policy to
+                    /usr/share/polkit-1/actions/org.policykitmanager.policykit.policy
+                    
+Planned Features:   Will be able to list previously added policies, and remove them upon request.
+                    For security reasons, this program will not edit policies added manually or by other means. 
