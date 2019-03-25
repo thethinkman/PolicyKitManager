@@ -41,6 +41,7 @@ Currently can add programs to PolicyKit. Currently writes policy to
                     
 Planned Features-------------------------------------------------------------------
 
-Will be able to list previously added policies, and remove them upon request.
+Due to containerization taking hold in the Linux community, this tool is no longer required to safely apply policies. Keeping this up for historical purposes with the original text below. 
+"Will be able to list previously added policies, and remove them upon request.
 For security reasons, this program will not edit policies added manually or by other means. 
-Perhaps I should also write a man page for this tool.
+Perhaps I should also write a man page for this tool."
